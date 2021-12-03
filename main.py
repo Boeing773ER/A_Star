@@ -1,66 +1,5 @@
 import numpy as np
-"""import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import Qt
-from PyQt5 import QtCore
-import time
 
-
-class Block(QLabel):
-    def __init__(self, number):
-        super().__init__()
-
-        self.number = number
-        self.setFixedSize(80, 80)
-
-        # 设置字体
-        font = QFont()
-        font.setPointSize(30)
-        font.setBold(True)
-        self.setFont(font)
-
-        # 设置字体颜色
-        pa = QPalette()
-        pa.setColor(QPalette.WindowText, Qt.white)
-        self.setPalette(pa)
-
-        # 设置文字位置
-        self.setAlignment(Qt.AlignCenter)
-
-        # 设置背景颜色\圆角和文本内容
-        if self.number == 0:
-            self.setStyleSheet("background-color:white;border-radius:10px;")
-        else:
-            self.setStyleSheet("background-color:blue;border-radius:10px;")
-            self.setText(str(self.number))
-
-
-class GraphicDisplay(QWidget):
-    def __init__(self, node_list):
-        self.node_list = node_list
-        super().__init__()
-        self.setWindowTitle("Matrix Display")
-
-        self.resize(400, 400)
-        self.gridlayout = QGridLayout()
-        self.gridlayout.setSpacing(10)
-        # self.setLayout(self.gridlayout)
-        self.block = []
-        for i in range(1, 16):
-            self.block.append(Block(i))
-
-    def update(self, array):
-        print("in func update")
-        for i in range(15):
-            self.gridlayout.removeWidget(self.block[i])
-        for row in range(4):
-            for column in range(4):
-                self.gridlayout.addWidget(Block(array[row][column]), row, column)
-                # self.gridlayout.addWidget(QLabel(array[row][column].__str__()), row, column)
-        self.setLayout(self.gridlayout)
-        # self.show()
-"""
 
 class Node:
     matrix = np.array([])
@@ -194,23 +133,11 @@ def main():
         node = open_list.pop()
         # take a node from open_list
         close_list.append(node)
-
-        # print(node.matrix, '\n', node.step, node.m_distance)
-        # print(node.matrix)
         # put it into close_list
         if (node.matrix == target).all():
             # check if finished
             print("finished")
-            # print(node.matrix, '\n')
             get_path(node)
-            #temp_list = get_path(node)
-            """app = QApplication(sys.argv)
-            graph_dis = GraphicDisplay(temp_list)
-            graph_dis.show()
-            while temp_list:
-                graph_dis.update(temp_list.pop().matrix)
-                time.sleep(1)
-            sys.exit(app.exec_())"""
             return
         else:
             expanded = expand_node(node, target)
@@ -232,13 +159,10 @@ def main():
                         break
                 if not(in_close or in_open):
                     open_list.append(new_node)
-                    # print("open_list:", len(open_list))
                 elif in_open:
-                    # if new_node.m_distance < open_list[pos].m_distance:
                     if evaluation(node) < evaluation(open_list[pos]):
                         del open_list[pos]
                         open_list.append(new_node)
-                        # print("open_list:", len(open_list))
             open_list = sorted(open_list, key=evaluation, reverse=True)
 
 
